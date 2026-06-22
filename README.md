@@ -1,4 +1,4 @@
-# Projet-final-dev-web : TrouvAnime
+# Projet-CDA : TrouvAnime
 
 L'objectif de ce projet était de créer une bibliothèque d'anime avec la possibilité d'ajouter des animes dans une page spécifique et personnelle à chaque utilisateur.
 
