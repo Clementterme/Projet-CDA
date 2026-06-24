@@ -69,12 +69,13 @@ if (isset($_SESSION["connecté"])) {
                         <button type="submit" class="btn btn-primary" name="supprimer">Supprimer de ma liste</button>
                     </form> 
         
-        <?php }  
+        <?php }
+            }  
 
         echo '
                         </div>
                 </div>';
-        }
+        
     } else {
 
         header('location: ' . HOME_URL . '404.php');
