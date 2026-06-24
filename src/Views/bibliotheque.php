@@ -16,7 +16,7 @@ require_once __DIR__ . "/../Includes/header.php";
             $resultat = $bdd->query($requete);
             while ($ligne = $resultat->fetch()) {
                 echo '
-                <a href="details.php?id=' . $ligne['id'] . '">
+                <a href="details?id=' . $ligne['id'] . '">
                 <div class="carteAnime">
                     <img class="imageAnime" src=' . $ligne['image'] . '>
                     <p class="nomAnime">' . $ligne['nom'] . '</p>
