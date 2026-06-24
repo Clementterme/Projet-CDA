@@ -15,12 +15,14 @@ require_once __DIR__ . "/../Includes/header.php";
 </div>
 
 <div class="boutons-accueil">
+    <?php if (!isset($_SESSION['connecté'])) { ?>
     <button>
         <a href="/connexion">Se connecter</a>
     </button>
     <button>
         <a href="/inscription">Créer un compte</a>
     </button>
+    <?php } ?>
     <button>
         <a href="/bibliotheque">Voir la bibliothèque</a>
     </button>
