@@ -14,6 +14,26 @@ if (isset($_GET['id'])) {
 
 
 if ($idAnime > 0) {
+
+    // Vérifier si l'anime est déjà dans la liste de l'utilisateur
+$estDansListe = false;
+
+if (isset($_SESSION["connecté"])) {
+    $requeteListe = $bdd->prepare("
+        SELECT *
+        FROM enregistre
+        WHERE id = :idUtilisateur
+        AND id_1 = :idAnime
+    ");
+
+    $requeteListe->execute([
+        'idUtilisateur' => $_SESSION['id'],
+        'idAnime' => $idAnime
+    ]);
+
+    $estDansListe = $requeteListe->fetch() !== false;
+}
+
     // Requête pour récupérer les détails de l'anime
     $requete = $bdd->prepare("SELECT * FROM anime WHERE id = :id");
     $requete->execute(['id' => $idAnime]);
@@ -38,15 +58,23 @@ if ($idAnime > 0) {
                             <p class="synopsis">' . $anime['synopsis'] . '</p>
                             <p class="dateSortie">Date de sortie: ' .  $dateSortie . '</p>
                             <p>Catégorie: ' .  $categorie['nom'] . '</p>';
-        if (isset($_SESSION["connecté"])) { ?>
+        if (isset($_SESSION["connecté"])) {
+            if (!$estDansListe) { ?>
                     <form method="POST">
                         <button type="submit" class="btn btn-primary" name="ajouter">Ajouter à ma liste</button>
                     </form>
 
-<?php }
+        <?php } else { ?>
+                    <form method="POST">
+                        <button type="submit" class="btn btn-primary" name="supprimer">Supprimer de ma liste</button>
+                    </form> 
+        
+        <?php }  
+
         echo '
                         </div>
                 </div>';
+        }
     } else {
 
         header('location: ' . HOME_URL . '404.php');

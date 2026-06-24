@@ -30,16 +30,29 @@ if (strpos($parsedUri, HOME_URL . "details") !== false) {
         }
         
         if ($id) {
-            $detailsController->homepage($id);
+            $detailsController->homepage();
         } else {
             $homeController->pageNotFound();
         }
+
     } else if ($methode == 'POST') {
         if (isset($_POST["ajouter"])) {
             $bdd = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8;", DB_USER, DB_PWD);
 
             $ajouterAnime = $bdd->prepare("INSERT INTO `enregistre` (`id`, `id_1`) VALUES(?, ?)");
             $ajouterAnime->execute(array($_SESSION['id'], $_GET['id']));
+
+            header("location: " . HOME_URL . "liste");
+        } else if (isset($_POST["supprimer"])) {
+            $bdd = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8;", DB_USER, DB_PWD);
+
+            $supprimerAnime = $bdd->prepare("DELETE FROM enregistre
+        WHERE id = :idUtilisateur
+        AND id_1 = :idAnime");
+            $supprimerAnime->execute([
+        'idUtilisateur' => $_SESSION['id'],
+        'idAnime' => $_GET['id']
+    ]);
 
             header("location: " . HOME_URL . "liste");
         }
