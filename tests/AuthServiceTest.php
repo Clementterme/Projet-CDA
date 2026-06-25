@@ -17,7 +17,7 @@ class AuthServiceTest extends TestCase
 
         $this->assertTrue(
             $service->verifierMotDePasse(
-                'admin123',
+                'test123',
                 $hash
             )
         );
@@ -28,7 +28,7 @@ class AuthServiceTest extends TestCase
         $service = new AuthService();
 
         $hash = password_hash(
-            'admin123',
+            'test123',
             PASSWORD_DEFAULT
         );
 

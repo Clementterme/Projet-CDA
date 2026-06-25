@@ -1,6 +1,5 @@
 <?php
 
-// require_once __DIR__.'/Repositories/UsersRepository.php';
 require_once __DIR__ . '/Controllers/HomeController.php';
 require_once __DIR__ . '/Controllers/ConnexionController.php';
 require_once __DIR__ . '/Controllers/BibliothequeController.php';
@@ -12,7 +11,6 @@ $homeController = new HomeController();
 $connexionController = new ConnexionController();
 $bibliothequeController = new BibliothequeController();
 $detailsController = new DetailsController();
-// $simplonController = new SimplonController();
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -93,13 +91,6 @@ if (strpos($parsedUri, HOME_URL . "details") !== false) {
             } else {
                 $homeController->pageNotFound();
             }
-            break;
-            // case HOME_URL . "details":
-            //     if ($methode == 'POST') {
-            //         $detailsController->ajouterListe();
-            //     } else {
-            //         $homeController->pageNotFound();
-            //     }
             break;
         case HOME_URL . 'deconnexion':
             $homeController->quit();
