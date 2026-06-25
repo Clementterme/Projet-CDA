@@ -1,0 +1,1 @@
+{"version":2,"defects":{"UtilisateurServiceTest::testEmailValide":8,"UtilisateurServiceTest::testEmailInvalide":8},"times":{"AnimeServiceTest::testFormatDate":0.663,"UtilisateurServiceTest::testEmailValide":0.001,"UtilisateurServiceTest::testEmailInvalide":0,"AuthServiceTest::testMotDePasseValide":0.213,"AuthServiceTest::testMotDePasseInvalide":0.149}}

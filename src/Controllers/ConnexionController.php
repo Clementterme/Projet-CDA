@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../Services/Render.php';
+require_once __DIR__ . '/../Services/AuthService.php';
+require_once __DIR__ . "/../Services/UtilisateurService.php";
 
 class ConnexionController {
     use Render;
@@ -13,6 +15,8 @@ class ConnexionController {
     }
 
     public function connexion() {
+
+        $authService = new AuthService();
 
         $bdd = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8;", DB_USER, DB_PWD);
 
@@ -29,7 +33,7 @@ class ConnexionController {
                     // Récupère les données de l'utilisateur qui se connecte pour les stocker dans la variable $_SESSION
                     $utilisateur = $selectUser->fetch();
 
-                    if (password_verify($mdp, $utilisateur["mdp"])) {
+                    if ($authService->verifierMotDePasse($mdp, $utilisateur['mdp'])) {
                        
                         $_SESSION["role"] = $utilisateur["id_1"];
                         $_SESSION["id"] = $utilisateur["id"];
@@ -61,11 +65,16 @@ class ConnexionController {
 
     public function inscription() {
 
+        $utilisateurService = new UtilisateurService();
+
         $bdd = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8;", DB_USER, DB_PWD);
 
         if (isset($_POST["envoi"])) {
             if (!empty($_POST["email"]) && !empty($_POST["mdp"]) && !empty($_POST["mdp2"])) {
                 if ($_POST["mdp"] == ($_POST["mdp2"])) {
+                    if (!$utilisateurService->emailValide($_POST['email'])) {
+                         echo "L'adresse email est invalide.";
+                        }
                     $email = htmlspecialchars($_POST['email']);
                     $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
 

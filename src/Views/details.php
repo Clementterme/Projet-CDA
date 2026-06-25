@@ -1,6 +1,9 @@
 <?php
 
 require_once __DIR__ . "/../Includes/header.php";
+require_once __DIR__ . "/../Services/AnimeService.php";
+
+$animeService = new AnimeService();
 
 // Connexion à la base de données
 $bdd = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8;", DB_USER, DB_PWD);
@@ -46,9 +49,10 @@ if (isset($_SESSION["connecté"])) {
     $categorie = $requete2->fetch();
 
     if ($anime) {
+
         // Change l'affichage de la date au format JJ-MM-AAAA
-        list($annee, $mois, $jour) = explode('-', $anime['date_sortie']);
-        $dateSortie = $jour . '-' . $mois . '-' . $annee;
+        $dateSortie = $animeService->formatDate($anime['date_sortie']);
+
         // Affichage des détails de l'anime
         echo '<h1>' . $anime['nom'] . '</h1>
                 <div class="affichageImageAnimeDetail">
